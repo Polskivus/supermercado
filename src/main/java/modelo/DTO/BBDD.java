@@ -14,7 +14,7 @@ public class BBDD extends Conexion {
 		String mostrarProductos = "SELECT * FROM productos";
 
 		ArrayList<Producto> productos = new ArrayList<Producto>();
-
+		
 		try {
 
 			PreparedStatement productosMostrar = super.conexion.prepareStatement(mostrarProductos);
@@ -31,21 +31,7 @@ public class BBDD extends Conexion {
 				producto.setPrecio(resultSet.getDouble("precio"));
 				producto.setCaducidad(resultSet.getDate("caducidad"));
 				producto.setId_seccion(resultSet.getInt("id_seccion"));
-
-				switch (producto.getId_seccion()) {
-				case 1:
-					producto.setSeccion("Alimentacion");
-					break;
-				case 2:
-					producto.setSeccion("Frescos");
-					break;
-				case 3:
-					producto.setSeccion("Bazar");
-					break;
-				case 4:
-					producto.setSeccion("Ferreteria");
-					break;
-				}
+				producto.setSeccion(getSeccion(producto.getId_seccion()));
 
 				productos.add(producto);
 
@@ -57,4 +43,28 @@ public class BBDD extends Conexion {
 
 		return productos;
 	}
+	
+	public Seccion getSeccion(int id) {
+		
+		String getseccion = "SELECT * FROM secciones WHERE id=?";
+		
+		Seccion seccion = new Seccion();
+		
+		try {
+			PreparedStatement pst = super.conexion.prepareStatement(getseccion);
+			pst.setInt(1, id);
+			ResultSet resultSet = pst.executeQuery();
+			
+			resultSet.next();
+			
+			seccion.setId(resultSet.getInt("id"));
+			seccion.setNombre(resultSet.getString("nombre"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return seccion;
+	}
+	
 }
