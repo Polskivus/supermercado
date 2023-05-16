@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import modelo.clases.Producto;
+import modelo.clases.Seccion;
 
 public class BBDD extends Conexion {
 
@@ -22,6 +23,7 @@ public class BBDD extends Conexion {
 			while (resultSet.next()) {
 
 				Producto producto = new Producto();
+
 				producto.setId(resultSet.getInt("id"));
 				producto.setCodigo(resultSet.getInt("codigo"));
 				producto.setNombre(resultSet.getString("nombre"));
@@ -29,6 +31,21 @@ public class BBDD extends Conexion {
 				producto.setPrecio(resultSet.getDouble("precio"));
 				producto.setCaducidad(resultSet.getDate("caducidad"));
 				producto.setId_seccion(resultSet.getInt("id_seccion"));
+
+				switch (producto.getId_seccion()) {
+				case 1:
+					producto.setSeccion("Alimentacion");
+					break;
+				case 2:
+					producto.setSeccion("Frescos");
+					break;
+				case 3:
+					producto.setSeccion("Bazar");
+					break;
+				case 4:
+					producto.setSeccion("Ferreteria");
+					break;
+				}
 
 				productos.add(producto);
 

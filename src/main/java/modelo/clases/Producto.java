@@ -11,6 +11,7 @@ public class Producto {
 	double precio;
 	Date caducidad;
 	int id_seccion;
+	String seccion;
 	
 	public Producto(){
 	}
@@ -78,5 +79,14 @@ public class Producto {
 	public void setId_seccion(int id_seccion) {
 		this.id_seccion = id_seccion;
 	}
+
+	public String getSeccion() {
+		return seccion;
+	}
+
+	public void setSeccion(String seccion) {
+		this.seccion = seccion;
+	}
+	
 	
 }

@@ -21,7 +21,7 @@
 					<th scope="col">Cantidad</th>
 					<th scope="col">Precio</th>
 					<th scope="col">Caducidad</th>
-					<th scope="col">id seccion</th>
+					<th scope="col">Nombre seccion</th>
 				</tr>
 			</thead>
 			<tbody>	
@@ -33,7 +33,7 @@
 					<td>${producto.cantidad }</td>
 					<td>${producto.precio }</td>
 					<td>${producto.caducidad }</td>
-					<td>${producto.id_seccion }</td>
+					<td>${producto.seccion }</td>
 				</tr>
 	</c:forEach>
 		</tbody>
