@@ -87,7 +87,4 @@ public class Producto {
 	public void setSeccion(Seccion seccion) {
 		this.seccion = seccion;
 	}
-
-	
-	
 }

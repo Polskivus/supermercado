@@ -38,5 +38,26 @@
 	</c:forEach>
 		</tbody>
 	</table>
+	<form method="post" action="Insertproducto">
+	
+		<lable for="Codigo producto">Codigo producto</lable>
+		<input type="text" id="codprod" name="codprod">
+		
+		<lable for="Nombre producto">Nombre producto</lable>
+		<input type="text" id="nomprod" name="nomprod">
+		
+		<lable for="Cantidad producto">Cantidad de producto</lable>
+		<input type="text" id="stockprod" name="stockprod">
+	
+		<lable for="Precio producto">Precio producto</lable>
+		<input type="text" id="priceprod" name="priceprod">
+		
+		<lable for="Caducidad producto">Caducidad producto</lable>
+		<input type="date" id="cadprod" name="cadprod">
+
+	<input type="submit" value="Insertar nuevo producto">
+	</form>
+	
+	
 </body>
 </html>

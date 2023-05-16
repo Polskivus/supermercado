@@ -1,5 +1,6 @@
 package modelo.DTO;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -65,6 +66,28 @@ public class BBDD extends Conexion {
 		}
 		
 		return seccion;
+	}
+	
+	public void insertProducto(Producto producto) {
+		
+		String insertarProducto = "INSERT INTO productos (codigo,nombre,cantidad,precio,caducidad) VALUES (?,?,?,?,?)";
+		
+		try {
+			
+			PreparedStatement pst = super.conexion.prepareStatement(insertarProducto);
+			
+			pst.setInt(1, producto.getCodigo());
+			pst.setString(2, producto.getNombre());
+			pst.setInt(3, producto.getCantidad());
+			pst.setDouble(4, producto.getPrecio());
+			pst.setDate(5, new Date(producto.getCaducidad().getTime()));
+			
+			pst.execute();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
