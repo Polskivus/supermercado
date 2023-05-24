@@ -5,7 +5,7 @@ import java.util.Date;
 public class Producto {
 	
 	int id;
-	int codigo;
+	String codigo;
 	String nombre;
 	int cantidad;
 	double precio;
@@ -16,7 +16,7 @@ public class Producto {
 	public Producto(){
 	}
 	
-	public Producto(int id, int codigo, String nombre, int cantidad, double precio, Date caducidad, int id_seccion) {
+	public Producto(int id, String codigo, String nombre, int cantidad, double precio, Date caducidad, int id_seccion) {
 		
 	}
 
@@ -28,11 +28,11 @@ public class Producto {
 		this.id = id;
 	}
 
-	public int getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
@@ -86,5 +86,11 @@ public class Producto {
 
 	public void setSeccion(Seccion seccion) {
 		this.seccion = seccion;
+	}
+	
+	public boolean comprobarFecha(Date fecha) {
+		
+		return this.caducidad.before(new Date());
+			
 	}
 }
