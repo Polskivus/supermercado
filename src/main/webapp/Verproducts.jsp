@@ -1,3 +1,4 @@
+<%@page import="modelo.clases.Producto"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,11 +13,29 @@
 
 <h1>Productos</h1>
 	
+<form method="get" action="VerProductos">
+	<label>Busqueda por nombre y/o ID</label>
+	
+	<input type="search" id="busca" name="busqueda">
+	<input type="submit" value="Buscar">
+</form>
+<form method="post" action="VerProductos">
+	
+	<label>Busqueda por precio min y/o max</label>
+
+	<label>Max:</label>
+	<input type="number" id="preciomax" name="preciomax" value="0.00" step=".01" min="0.00">
+	
+	<label>Min:</label>
+	<input type="number" id="preciomin" name="preciomin" value="0.00" step=".01" min="0.00">
+	
+	<input type="submit" value="Buscar">
+</form>
 	<table class="table table-striped">
 			<thead>
 				<tr>
 					<th scope="col">Id producto</th>
-					<th scope="col">Codigo producto</th>
+					<th scope="col">Codigo producto<a href="OrdenarProductos?orden=asc">&#8593;</a> <a href="OrdenarProductos?orden=des">&#8595;</a></th>
 					<th scope="col">Nombre</th>
 					<th scope="col">Cantidad</th>
 					<th scope="col">Precio</th>
@@ -34,6 +53,11 @@
 					<td>${producto.precio }</td>
 					<td>${producto.caducidad }</td>
 					<td>${producto.seccion.nombre }</td>
+					<td>
+						<button>
+							<a href="ModificarProducto?id=${producto.id}">Editar</a>
+						</button>
+					</td>
 				</tr>
 	</c:forEach>
 		</tbody>
@@ -57,10 +81,9 @@
 		
 		<label for="id_seccion">Id seccion</label>
 		<select id="id_seccion" name="id_seccion" required>
-			<option value="1">Alimentacion</option>
-			<option value="2">Frescos</option>
-			<option value="3">Bazar</option>
-			<option value="4">Ferreteria</option>
+ 			<c:forEach items="${secciones}" var="seccion">
+    			<option value="${seccion.id}">${seccion.nombre}</option>
+  			</c:forEach>
 		</select>
 
 	<input type="submit" value="Insertar nuevo producto">

@@ -93,4 +93,5 @@ public class Producto {
 		return this.caducidad.before(new Date());
 			
 	}
+
 }

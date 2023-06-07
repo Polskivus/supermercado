@@ -45,6 +45,34 @@ public class BBDD extends Conexion {
 		return productos;
 	}
 
+	public ArrayList<Seccion> setSeccion() {
+
+		String selectseccion = "SELECT * FROM secciones";
+
+		ArrayList<Seccion> secciones = new ArrayList<Seccion>();
+
+		try {
+
+			PreparedStatement pst = super.conexion.prepareStatement(selectseccion);
+			ResultSet resultSet = pst.executeQuery();
+
+			while (resultSet.next()) {
+
+				Seccion seccion = new Seccion();
+
+				seccion.setId(resultSet.getInt("id"));
+				seccion.setNombre(resultSet.getString("nombre"));
+
+				secciones.add(seccion);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return secciones;
+	}
+
 	public Seccion getSeccion(int id) {
 
 		String getseccion = "SELECT * FROM secciones WHERE id=?";
@@ -121,38 +149,69 @@ public class BBDD extends Conexion {
 			PreparedStatement pst = super.conexion.prepareStatement(codigoExiste);
 			pst.setString(1, codigo);
 			ResultSet resultSet = pst.executeQuery();
-			
+
 			resultSet.next();
-				return resultSet.getString("codigo").equals(codigo) ? true : false;
-  
+			return resultSet.getString("codigo").equals(codigo) ? true : false;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return false;
 	}
-	
-	public void ModificarProducto(Producto producto) {
-		
-		String modprod ="UPDATE productos SET codigo=?, nombre=?, cantidad=?, precio=?, caducidad=?, id_seccion=? WHERE id=?";
-		
+
+	public Producto seleccionporID(int id) {
+
+		String selectProd = "SELECT * FROM productos WHERE id=?";
+		Producto modprod = new Producto();
+
 		try {
-			
+
+			PreparedStatement pst = super.conexion.prepareStatement(selectProd);
+			pst.setInt(1, id);
+
+			ResultSet resultSet = pst.executeQuery();
+
+			while (resultSet.next()) {
+
+				modprod.setId(resultSet.getInt("id"));
+				modprod.setCodigo(resultSet.getString("codigo"));
+				modprod.setNombre(resultSet.getString("nombre"));
+				modprod.setCantidad(resultSet.getInt("cantidad"));
+				modprod.setPrecio(resultSet.getDouble("precio"));
+				modprod.setCaducidad(resultSet.getDate("caducidad"));
+				modprod.setId_seccion(resultSet.getInt("id_seccion"));
+				modprod.setSeccion(getSeccion(resultSet.getInt("id_seccion")));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return modprod;
+	}
+
+	public void ModificarProducto(Producto producto) {
+
+		String modprod = "UPDATE productos SET codigo=?, nombre=?, cantidad=?, precio=?, caducidad=?, id_seccion=? WHERE id=?";
+
+		try {
+
 			PreparedStatement pst = super.conexion.prepareStatement(modprod);
 			pst.setInt(7, producto.getId());
-			
+
 			pst.setString(1, producto.getCodigo());
 			pst.setString(2, producto.getNombre());
 			pst.setInt(3, producto.getCantidad());
 			pst.setDouble(4, producto.getPrecio());
 			pst.setDate(5, new Date(producto.getCaducidad().getTime()));
 			pst.setInt(6, producto.getId_seccion());
-			
+
 			pst.execute();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
